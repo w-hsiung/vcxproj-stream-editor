@@ -71,33 +71,44 @@ def remove_warning_level(target):
     while True:
         action, params = yield
         if action == "start_elem" and params["name"] == "WarningLevel":
+            target.send((action, params))
             action, params = yield
             assert action == "chars"
+            print(params["content"])
+            params["content"] = "Level4"
+            target.send((action, params))
             action, params = yield
             assert action == "end_elem"
             assert params["name"] == "WarningLevel"
+            target.send((action, params))
             continue
         target.send((action, params))
 
 
 @vcxproj.coroutine
-def change_setting(target):
+def change_build_settings(target):
     while True:
         action, params = yield
         if action == "start_elem" and params["name"] == "WarningLevel":
+            target.send((action, params))
             action, params = yield
             assert action == "chars"
+            print(params["content"])
+            params["content"] = "Level4"
+            target.send((action, params))
             action, params = yield
             assert action == "end_elem"
             assert params["name"] == "WarningLevel"
+            target.send((action, params))
             continue
         target.send((action, params))
 
 
 def main():
     #vcxproj.check_file("Ex1.vcxproj", print_project_guid)
-    vcxproj.check_file("Ex1.vcxproj", print_element)
+    #vcxproj.check_file("Ex1.vcxproj", print_element)
     #vcxproj.filter_file("Ex1.vcxproj", remove_warning_level, "Ex1.new.vcxproj")
+    vcxproj.filter_file("Ex2.vcxproj", change_build_settings, "Ex2.new.vcxproj")
     return
 
 
