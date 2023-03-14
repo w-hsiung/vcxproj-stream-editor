@@ -90,6 +90,7 @@ def change_build_settings(target):
 
 
 def main():
+    print("*****************************")
     vcxproj.check_file("Ex1.vcxproj", print_elements)
     return
 
