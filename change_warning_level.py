@@ -2,7 +2,7 @@ import vcxproj
 
 
 @vcxproj.coroutine
-def change_build_settings(target):
+def change_warning_level(target):
     while True:
         action, params = yield
         if action == "start_elem" and params["name"] == "WarningLevel":
@@ -21,7 +21,7 @@ def change_build_settings(target):
 
 
 def main():
-    vcxproj.filter_file("Ex2.vcxproj", change_build_settings, "Ex2.new.vcxproj")
+    vcxproj.filter_file("Ex2.vcxproj", change_warning_level, "Ex2.new.vcxproj")
     return
 
 
