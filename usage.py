@@ -2,16 +2,6 @@ import vcxproj
 
 
 @vcxproj.coroutine
-def print_project_guid():
-    while True:
-        action, params = yield
-        if action == "start_elem" and params["name"] == "ProjectGuid":
-            action, params = yield
-            assert action == "chars"
-            print("Project GUID is ", params["content"])
-
-
-@vcxproj.coroutine
 def remove_warning_level(target):
     while True:
         action, params = yield
@@ -45,8 +35,6 @@ def change_build_settings(target):
 
 
 def main():
-    #vcxproj.check_file("Ex1.vcxproj", print_project_guid)
-    #vcxproj.check_file("Ex1.vcxproj", print_element)
     #vcxproj.filter_file("Ex1.vcxproj", remove_warning_level, "Ex1.new.vcxproj")
     vcxproj.filter_file("Ex2.vcxproj", change_build_settings, "Ex2.new.vcxproj")
     return
